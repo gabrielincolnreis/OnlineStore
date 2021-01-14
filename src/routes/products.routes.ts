@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { getCustomRepository } from 'typeorm';
 
 import ProductsRepository from '../repositories/ProductsRepository';
-import CreateProductService from '../services/CreateProduct';
+import CreateProductService from '../services/CreateProductService';
 import DeleteProductService from '../services/DeleteProductService'
 import UpdateProductService from '../services/UpdateProductService'
 
