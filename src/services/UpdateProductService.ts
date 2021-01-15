@@ -1,5 +1,4 @@
 import { getCustomRepository } from 'typeorm';
-import AppError from '../errors/AppError';
 import Product from '../models/Products';
 
 import ProductsRepository from '../repositories/ProductsRepository';
@@ -11,7 +10,7 @@ class UpdateProductsService {
     const products = await productsRepository.findOne(id);
 
     if (!products) {
-      throw new AppError('Product does not exist');
+      throw new Error('Product does not exist');
     }
 
     products.name = name

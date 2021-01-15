@@ -16,36 +16,48 @@ productsRouter.get('/', async (request, response)=> {
 });
 
 productsRouter.post('/', async (request, response)=> {
-  const { name } = request.body;
+  try{
+    const { name } = request.body;
 
-  const createProduct = new CreateProductService();
-  const product = await createProduct.execute({
-    name,
-  });
+    const createProduct = new CreateProductService();
+    const product = await createProduct.execute({
+      name,
+    });
 
-  return response.json(product);
+    return response.json(product);
+  } catch (err){
+    return response.status(400).json({error: err.message})
+  }
+  
 })
 
 productsRouter.delete('/:id', async (request, response)=> {
-  const { id } = request.params;
+  try {
+    const { id } = request.params;
 
-  const deleteProducts = new DeleteProductService();
+    const deleteProducts = new DeleteProductService();
 
-  await deleteProducts.execute(id);
+    await deleteProducts.execute(id);
 
-  return response.status(204).send();
+    return response.status(204).send();
+  } catch (err){
+    return response.status(400).json({error: err.message})
+  } 
 })
 
 productsRouter.put('/:id', async (request, response)=> {
-  const { id } = request.params;
-  const { name } = request.body;
+  try{
+    const { id } = request.params;
+    const { name } = request.body;
+    
+    const updateProductsService = new UpdateProductService();
   
-  const updateProductsService = new UpdateProductService();
-
-  const product = await updateProductsService.execute(id, name);
-
-  return response.json(product);
+    const product = await updateProductsService.execute(id, name);
   
-})
+    return response.json(product);
+  } catch(err){
+    return response.status(400).json({error: err.message})
+  }
+});
 
 export default productsRouter;
