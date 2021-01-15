@@ -6,7 +6,11 @@ import CreateProductService from '../services/CreateProductService';
 import DeleteProductService from '../services/DeleteProductService'
 import UpdateProductService from '../services/UpdateProductService'
 
+import ensureAuthenticated from '../middlewares/ensureAuthenticated'
+
 const productsRouter = Router();
+
+productsRouter.use(ensureAuthenticated);
 
 productsRouter.get('/', async (request, response)=> {
   const productsRepository = await getCustomRepository(ProductsRepository)
