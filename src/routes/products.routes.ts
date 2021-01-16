@@ -19,6 +19,17 @@ productsRouter.get('/', async (request, response)=> {
   return response.json(products);
 });
 
+productsRouter.get('/:id', async (request, response)=> {
+  const productsRepository = await getCustomRepository(ProductsRepository)
+
+  const { id } = request.params;
+
+  const products = await productsRepository.findOne(id);
+
+
+  return response.json(products);
+});
+
 productsRouter.post('/', async (request, response)=> {
   try{
     const { name } = request.body;
